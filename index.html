@@ -2,40 +2,54 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Then and Now - Torreón</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Antes y Ahora - Torreón</title>
     <style media="screen">
       html, body{
         height: 100%;
         margin: 0;
-        background-color: pink;
         overflow: hidden;
+        font-size: 1.2rem;
       }
       .main-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .second-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        width: 100%;
+        height: 100%;
+      }
+      .third{
+        width: 100%;
         height: 100%;
       }
       img {
         width: 100%;
       }
       #photo2 {
-        position: absolute;
-        top: 0;
-        left: 0;
       }
       #image-container{
-        position: fixed;
         top: 0;
-        width: 100%;
-        height: 100%;
         z-index: 0;
         overflow: hidden;
       }
       .input-container {
         position: absolute;
         top: 0;
-        width: 50%;
+        width: 100%;
         height: 10%;
         padding: 10px 10px;
-
+        z-index: 100;
       }
 
     </style>
@@ -44,24 +58,36 @@
     <div class="main-container">
       <img id="photo1" src="botica_actual.jpg" alt="">
 
-      <div id="image-container">
-        <img id="photo2" src="botica.png" alt="">
+    </div>
+    <div class="second-container">
+      <div class="third" name="third" id="third">
+        <div id="image-container">
+          <img id="photo2" src="botica.png" alt="">
+        </div>
       </div>
     </div>
     <div class="input-container">
-      <label for="adjustSize">Move the Slider to compare the Then/Now</label>
+      <label for="adjustSize">Desliza el control para ver el antes y el ahora.</label>
       <input id="range" name="adjustSize" type="range" min="0" max="1" step=".01" value="100" oninput="adjustHeight()">
     </div>
 
     <script>
+    window.onload = function() {
+      if ( window.orientation == 0 || window.orientation == 180 ) {
+              alert ('Esta pagina se visualiza mejor en modo horizontal.');
+          }
+      };
       function adjustHeight(){
         let element = document.getElementById('image-container');
         let rangeValue = document.getElementById('range').value;
         let photo1Height = document.getElementById('photo1').offsetHeight;
         element.style.height = photo1Height*rangeValue + 'px';
+        element.style.height = photo1Height*rangeValue + 'px';
+        cont = document.getElementById('third').style.height = photo1Height + 'px';
         console.log(100+'%');
         console.log(photo1Height*rangeValue + 'px');
       }
+      setTimeout(()=> adjustHeight(),500);
     </script>
   </body>
 </html>
